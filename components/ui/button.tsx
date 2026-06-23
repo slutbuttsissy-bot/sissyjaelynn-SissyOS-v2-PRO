@@ -41,6 +41,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     )
   }
 )
-Button.displayName = "Button"
-
+Button.displayName = "Button" // deploy-gate shadcn usage edit
 export { Button, buttonVariants }

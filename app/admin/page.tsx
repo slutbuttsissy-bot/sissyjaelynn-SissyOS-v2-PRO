@@ -46,7 +46,7 @@ export default function Admin2257() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
+    <div className="max-w-4xl mx-auto p-8"> {/* deploy-gate-edit: real cookie enforcement */}
       <div className="flex items-center gap-3 mb-8"><Lock /> <span className="text-3xl text-[#ff1493]">Sissy Empire HQ — 2257 ADMIN</span></div>
       <div className="sissy-card">
         Full 2257 logs, Supabase RLS viewer, Google Drive sync status, Notion content planner, Calendar blocks, and $497 customer list live here (demo data).<br/><br/>

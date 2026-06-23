@@ -11,4 +11,4 @@ self.addEventListener('fetch', (e) => {
 self.addEventListener('push', (e) => {
   const data = e.data ? e.data.text() : 'Deeper good girl';
   self.registration.showNotification('SissyOS', { body: data, icon: '/icon-192.jpg' });
-}); // deploy-gate PWA real
+}); // deploy-gate PWA edit for diffs
