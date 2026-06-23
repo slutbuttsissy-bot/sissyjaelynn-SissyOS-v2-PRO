@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
-    "test:watch": "vitest" // deploy-gate shadcn+recharts+canvas + full push target
+    "test:watch": "vitest"
   },
   "dependencies": {
     "next": "15.3.1",
