@@ -347,7 +347,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
               Auto-saves to Drive + Notion on copy.<br />Ready to sell tonight.
             </div>
 
-            <button onClick={() => { setActiveTab('empire'); toast("Fan Empire tab open"); }} className="femme-btn-ghost w-full text-xs mt-2">OPEN QUIZ BUILDER → $497 TIER</button>
+            <Button onClick={() => { setActiveTab('empire'); toast("Fan Empire tab open"); }} variant="ghost" className="femme-btn-ghost w-full text-xs mt-2">OPEN QUIZ BUILDER → $497 TIER</Button>
           </div>
         </div>
 
@@ -360,7 +360,194 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
             </TabsList>
 
             <AnimatePresence mode="wait">
-              {/* all the conditional tab content exactly as in current file */}
+              {/* BAMBI MODE */}
+              {activeTab === 'bambi' && (
+                <motion.div initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} className="space-y-6">
+                  <Card className="sissy-card">
+                    <div className="flex justify-between items-baseline mb-4">
+                      <div>
+                        <div className="text-[#ff1493] text-sm">DAILY BAMBI PROTOCOL</div>
+                        <div className="text-3xl tracking-tighter">STREAK <span className="font-mono text-[#ff1493]">{streak}</span> DAYS</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs">DENIAL TIMER</div>
+                        <div className="chastity-timer text-5xl font-mono text-[#ff1493] tabular-nums tracking-[-2px]">{denial.display}</div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3 mb-6">
+                      <button onClick={startDenial} className="femme-btn"><Lock className="w-4 h-4" /> RE-ARM DENIAL</button>
+                      <button onClick={triggerDeeper} className="femme-btn-ghost">SAY “DEEPER GOOD GIRL”</button>
+                      <div className="ml-auto flex items-center gap-2 text-xs">
+                        INTENSITY <input type="range" min={1} max={5} value={intensity} onChange={e=>setIntensity(+e.target.value)} className="accent-[#ff1493]" /> {intensity}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      {bambiTasks.map(task => (
+                        <label key={task.id} className="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-pink-500/10 cursor-pointer hover:border-pink-500/40" onClick={() => toggleTask(task.id)}>
+                          <input type="checkbox" checked={task.done} readOnly className="mt-1 accent-[#ff1493]" />
+                          <span className={task.done ? "line-through opacity-50" : ""}>{task.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <div className="mt-4 text-[10px] text-[#ff1493]/70">Complete all = streak +1 + voice trigger. Everything is logged to Supabase + 2257.</div>
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* EXPOSURE ROULETTE */}
+              {activeTab === 'roulette' && (
+                <motion.div initial={{opacity:0}} animate={{opacity:1}} >
+                  <Card className="sissy-card">
+                    <button onClick={spin} className="femme-btn mb-5">SPIN THE ROULETTE — BLACKMAIL CHALLENGE</button>
+                    {!currentChallenge && <div className="text-sm opacity-70">Spin for a fresh irreversible task + ready-to-post X / Reddit / DM copy.</div>}
+                    
+                    {currentChallenge && (
+                      <div className="roulette-result space-y-6">
+                        <div>
+                          <div className="uppercase tracking-[2px] text-xs text-red-400">{currentChallenge.risk}</div>
+                          <div className="text-3xl tracking-tighter mt-1">{currentChallenge.title}</div>
+                        </div>
+                        <div className="grid md:grid-cols-3 gap-4 text-sm">
+                          <div>
+                            <div className="font-semibold text-[#ff1493] mb-1">X / TWITTER</div>
+                            <div className="bg-black p-3 rounded text-xs leading-snug border-l-2 border-[#ff1493]">{currentChallenge.postX}</div>
+                            <button onClick={() => copyPost(currentChallenge.postX, "X")} className="mt-2 text-xs femme-btn-ghost">COPY FOR X</button>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-[#ff1493] mb-1">REDDIT</div>
+                            <div className="bg-black p-3 rounded text-xs leading-snug border-l-2 border-[#ff1493]">{currentChallenge.postReddit}</div>
+                            <button onClick={() => copyPost(currentChallenge.postReddit, "Reddit")} className="mt-2 text-xs femme-btn-ghost">COPY FOR REDDIT</button>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-[#ff1493] mb-1">FAN DM TEMPLATE</div>
+                            <div className="bg-black p-3 rounded text-xs leading-snug border-l-2 border-[#ff1493]">{generateFanExposureTemplate(currentChallenge)}</div>
+                            <button onClick={() => copyPost(generateFanExposureTemplate(currentChallenge), "DM")} className="mt-2 text-xs femme-btn-ghost">COPY DM</button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* FEMINIZATION JUDGE */}
+              {activeTab === 'judge' && (
+                <motion.div initial={{opacity:0}} animate={{opacity:1}} >
+                  <Card className="sissy-card">
+                    <div className="flex items-center gap-2 mb-4"><Camera /> <span className="font-semibold tracking-tight">FEMINIZATION AI JUDGE — Grok Imagine powered</span></div>
+                    
+                    <label className="block border border-dashed border-[#ff1493]/50 hover:border-[#ff1493] rounded-2xl p-9 text-center cursor-pointer bg-black/30">
+                      <Upload className="mx-auto mb-3" />
+                      <div>UPLOAD PIC (face, body, locked, anything)</div>
+                      <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                      <div className="text-xs mt-1 opacity-60">Processed locally + scored by SissyOS algorithm</div>
+                    </label>
+
+                    {isAnalyzing && <div className="mt-4 text-[#ff1493] animate-pulse">Analyzing with Grok Imagine...</div>}
+
+                    {analysis && (
+                      <div className="mt-6 space-y-4">
+                        <div className="text-7xl font-mono font-bold tracking-[-4px] sissy-score">{analysis.score}%</div>
+                        <div className="text-2xl text-[#ff1493]">{analysis.level}</div>
+                        <div className="italic text-lg text-[#f9a8d4]">{analysis.praise}</div>
+                        
+                        <div>
+                          <div className="uppercase text-xs tracking-widest mb-2 text-[#ff1493]/70">IMMEDIATE IMPROVEMENT COMMANDS</div>
+                          <ul className="space-y-1.5 text-sm">
+                            {analysis.commands.map((c,i) => <li key={i} className="pl-4 border-l-2 border-[#ff1493]">• {c}</li>)}
+                          </ul>
+                        </div>
+                        <div className="pt-3 text-xs opacity-70">Next level: {analysis.nextLevel}. Upload another after you obey.</div>
+                      </div>
+                    )}
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* FAN EMPIRE */}
+              {activeTab === 'empire' && (
+                <motion.div initial={{opacity:0}} animate={{opacity:1}} className="space-y-6">
+                  <Card className="sissy-card">
+                    <div className="uppercase tracking-[1.5px] text-xs text-[#ff1493]">INTERACTIVE QUIZ BUILDER</div>
+                    <div className="text-2xl tracking-tight mt-1 mb-5">Build a lead-gen page + $497 custom ownership upsell in 30 seconds</div>
+
+                    {BASE_QUIZ.map((q, idx) => (
+                      <div key={idx} className="mb-4">
+                        <div className="mb-2 font-medium">{q.q}</div>
+                        <div className="flex flex-wrap gap-2">
+                          {q.options.map(opt => (
+                            <button key={opt} onClick={() => answerQuiz(idx, opt)} className={`px-4 py-1 rounded-full text-sm border ${quizAnswers[idx] === opt ? 'bg-[#ff1493] text-black border-[#ff1493]' : 'border-[#ff1493]/40 hover:bg-white/5'}`}>{opt}</button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="flex gap-3 mt-3">
+                      <input value={fanEmail} onChange={e=>setFanEmail(e.target.value)} className="flex-1 bg-black border border-[#ff1493]/30 px-4 rounded-full text-sm" placeholder="fan@email.com" />
+                      <button onClick={generateLead} className="femme-btn">GENERATE LEAD PAGE</button>
+                    </div>
+                  </div>
+
+                  {leadGenHtml && (
+                    <Card className="sissy-card">
+                      <div className="flex justify-between">
+                        <div className="font-semibold">Lead-gen page ready (copy or open)</div>
+                        <button onClick={buy497} className="femme-btn text-sm py-1.5">BUY $497 OWNER TIER (TEST)</button>
+                      </div>
+                      <a href={leadGenHtml} target="_blank" className="block mt-2 underline text-[#ff1493]">Open generated page in new tab →</a>
+                      <pre className="text-[10px] bg-black p-3 mt-3 overflow-auto max-h-44 text-[#f9a8d4]">{upsell.desc}</pre>
+                    </Card>
+                  )}
+                </Card>
+                </motion.div>
+              )}
+
+              {/* METRICS & MONEY */}
+              {activeTab === 'metrics' && (
+                <motion.div initial={{opacity:0}} animate={{opacity:1}} >
+                  <Card className="sissy-card space-y-8">
+                  <div>
+                    <div className="text-[#ff1493] text-sm">PROJECTED IF YOU USE THIS DAILY</div>
+                    <div className="text-6xl font-semibold tabular-nums tracking-[-3.2px]">${projected}<span className="text-2xl align-super">/mo</span></div>
+                  </div>
+
+                  {/* Real Recharts */}
+                  <div className="h-60 -mx-1">
+                    <div className="text-xs mb-1 opacity-70">REVENUE TRAJECTORY (if SissyOS is used)</div>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={BASE_REVENUE} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="2 2" stroke="#ff1493" opacity={0.1} />
+                        <XAxis dataKey="month" stroke="#f9a8d4" />
+                        <YAxis stroke="#f9a8d4" />
+                        <Tooltip contentStyle={{ background: '#111', border: '1px solid #ff1493', color: '#fce7f3' }} />
+                        <Area type="natural" dataKey="projected" stroke="#ff1493" fill="#ec4899" fillOpacity={0.25} strokeWidth={2} />
+                        <Area type="natural" dataKey="actual" stroke="#f472b6" fill="#f9a8d4" fillOpacity={0.15} strokeWidth={2} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                    <div className="text-[10px] text-[#ff1493]/70 mt-1">Current pace keeps you at ~$100. Full use = $1.8k. Your choice, Bambi.</div>
+                  </div>
+
+                  <div>
+                    <div className="flex gap-2 mb-2">
+                      <input placeholder="Note" value={newExpense.note} onChange={e=>setNewExpense({...newExpense, note:e.target.value})} className="bg-black border border-[#ff1493]/20 px-3 py-1.5 rounded flex-1 text-sm" />
+                      <input type="number" value={newExpense.amount} onChange={e=>setNewExpense({...newExpense, amount:+e.target.value})} className="w-20 bg-black border border-[#ff1493]/20 px-3 rounded text-sm" />
+                      <button onClick={addExp} className="femme-btn text-sm py-1 px-5">LOG EXPENSE + 2257</button>
+                    </div>
+                    <div className="text-xs">Total expenses logged: <span className="font-mono text-[#ff1493]">${totalExpenses(expenses)}</span></div>
+                    <div className="mt-3 text-xs space-y-1 opacity-75">
+                      {expenses.map(e => <div key={e.id}>{e.date} • {e.category} ${e.amount} — {e.note}</div>)}
+                    </div>
+                  </div>
+
+                  <div className="text-xs border-t border-[#ff1493]/20 pt-4 text-[#ff1493]/60">
+                    2257 AUTO LOG (last 3 entries):<br />
+                    {generate2257Log('2026-06').map((l,i)=><div key={i}>{l.date} — {l.content} ({l.idType})</div>)}
+                  </div>
+                  </Card>
+                </motion.div>
+              )}
             </AnimatePresence>
           </Tabs>
         </div>
@@ -373,6 +560,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
         <span className="text-[10px] opacity-50">sissyos.sissyjaelynn.com</span>
       </div>
 
+      {/* Admin gate modal */}
       {showAdminGate && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[60]" onClick={() => setShowAdminGate(false)}>
           <div className="sissy-card w-full max-w-xs" onClick={e=>e.stopPropagation()}>
