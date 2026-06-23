@@ -478,7 +478,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
                         <div className="mb-2 font-medium">{q.q}</div>
                         <div className="flex flex-wrap gap-2">
                           {q.options.map(opt => (
-                            <button key={opt} onClick={() => answerQuiz(idx, opt)} className={`px-4 py-1 rounded-full text-sm border ${quizAnswers[idx] === opt ? 'bg-[#ff1493] text-black border-[#ff1493]' : 'border-[#ff1493]/40 hover:bg-white/5'}`}>{opt}</button>
+                            <Button key={opt} onClick={() => answerQuiz(idx, opt)} className={`px-4 py-1 rounded-full text-sm border ${quizAnswers[idx] === opt ? 'bg-[#ff1493] text-black border-[#ff1493]' : 'border-[#ff1493]/40 hover:bg-white/5'}`}>{opt}</Button>
                           ))}
                         </div>
                       </div>
