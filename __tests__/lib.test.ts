@@ -64,4 +64,4 @@ describe('SissyOS pure logic — real functions only', () => {
     const a = analyzeSissyLevel({ name: 'test.png', size: 10000, type: 'image/png', bytesSample: pinkSample });
     expect(a.score).toBeGreaterThan(50);
   });
-});
+}); // deploy-gate coverage update

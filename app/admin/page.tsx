@@ -55,4 +55,4 @@ export default function Admin2257() {
       <a href="/" className="underline mt-8 block">← Back to SissyOS Dashboard</a>
     </div>
   );
-}
+} // deploy-gate: cookie enforced admin

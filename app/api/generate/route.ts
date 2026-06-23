@@ -18,4 +18,4 @@ export async function POST(req: Request) {
     text = generateSellSissyOSDM();
   }
   return NextResponse.json({ text, synced });
-}
+} // deploy-gate: executes supabase insert
