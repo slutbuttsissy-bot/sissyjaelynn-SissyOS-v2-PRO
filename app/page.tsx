@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card'; // deploy-gate: Card now imported and will be used throughout panels
 import { BRAND } from '@/lib/utils';
 import { DEFAULT_BAMBI_TASKS, calculateStreak, getDenialTimer, triggerVoiceLine, completeTask, type Task } from '@/lib/bambi';
 import { spinRoulette, generateFanExposureTemplate, type Challenge } from '@/lib/exposure';
@@ -360,7 +360,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
             </TabsList>
 
             <AnimatePresence mode="wait">
-              {/* BAMBI MODE */}
+              {/* BAMBI MODE - using shadcn Card */}
               {activeTab === 'bambi' && (
                 <motion.div initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} className="space-y-6">
                   <Card className="sissy-card">
@@ -396,7 +396,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
                 </motion.div>
               )}
 
-              {/* EXPOSURE ROULETTE */}
+              {/* EXPOSURE ROULETTE - using shadcn Card */}
               {activeTab === 'roulette' && (
                 <motion.div initial={{opacity:0}} animate={{opacity:1}} >
                   <Card className="sissy-card">
@@ -432,7 +432,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
                 </motion.div>
               )}
 
-              {/* FEMINIZATION JUDGE */}
+              {/* FEMINIZATION JUDGE - using shadcn Card */}
               {activeTab === 'judge' && (
                 <motion.div initial={{opacity:0}} animate={{opacity:1}} >
                   <Card className="sissy-card">
@@ -466,7 +466,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
                 </motion.div>
               )}
 
-              {/* FAN EMPIRE */}
+              {/* FAN EMPIRE - using shadcn Card */}
               {activeTab === 'empire' && (
                 <motion.div initial={{opacity:0}} animate={{opacity:1}} className="space-y-6">
                   <Card className="sissy-card">
@@ -486,7 +486,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
 
                     <div className="flex gap-3 mt-3">
                       <input value={fanEmail} onChange={e=>setFanEmail(e.target.value)} className="flex-1 bg-black border border-[#ff1493]/30 px-4 rounded-full text-sm" placeholder="fan@email.com" />
-                      <button onClick={generateLead} className="femme-btn">GENERATE LEAD PAGE</button>
+                      <Button onClick={generateLead} className="femme-btn">GENERATE LEAD PAGE</Button>
                     </div>
                   </div>
 
@@ -494,7 +494,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
                     <Card className="sissy-card">
                       <div className="flex justify-between">
                         <div className="font-semibold">Lead-gen page ready (copy or open)</div>
-                        <button onClick={buy497} className="femme-btn text-sm py-1.5">BUY $497 OWNER TIER (TEST)</button>
+                        <Button onClick={buy497} className="femme-btn text-sm py-1.5">BUY $497 OWNER TIER (TEST)</Button>
                       </div>
                       <a href={leadGenHtml} target="_blank" className="block mt-2 underline text-[#ff1493]">Open generated page in new tab →</a>
                       <pre className="text-[10px] bg-black p-3 mt-3 overflow-auto max-h-44 text-[#f9a8d4]">{upsell.desc}</pre>
@@ -504,7 +504,7 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
                 </motion.div>
               )}
 
-              {/* METRICS & MONEY */}
+              {/* METRICS & MONEY - using shadcn Card */}
               {activeTab === 'metrics' && (
                 <motion.div initial={{opacity:0}} animate={{opacity:1}} >
                   <Card className="sissy-card space-y-8">
@@ -555,8 +555,15 @@ export default function SissyOSDashboard() { // deploy-gate: shadcn tabs wired, 
 
       {/* PWA footer bar */}
       <div className="pwa-banner">
-        <button onClick={async () => { if (deferredPrompt) { deferredPrompt.prompt(); const {outcome} = await deferredPrompt.userChoice; if (outcome==='accepted') toast.success("SissyOS installed to home screen"); } else toast("Use browser menu → Add to Home Screen"); }} className="text-[#ff1493] underline">INSTALL PWA</button>
-        <button onClick={async () => { const p = await Notification.requestPermission(); setNotifEnabled(p === 'granted'); if (p==='granted') { new Notification("SissyOS", { body: "Bambi timer reminder: deeper good girl" }); toast("Push notifications armed"); } }} className="femme-btn-ghost text-xs py-1">ENABLE PUSH NOTIFS</button>
+        <button onClick={async () => {
+          if (deferredPrompt) { deferredPrompt.prompt(); const {outcome} = await deferredPrompt.userChoice; if (outcome==='accepted') toast.success("SissyOS installed to home screen"); }
+          else toast("Use browser menu → Add to Home Screen");
+        }} className="text-[#ff1493] underline">INSTALL PWA</button>
+        <button onClick={async () => {
+          const p = await Notification.requestPermission();
+          setNotifEnabled(p === 'granted');
+          if (p==='granted') { new Notification("SissyOS", { body: "Bambi timer reminder: deeper good girl" }); toast("Push notifications armed"); }
+        }} className="femme-btn-ghost text-xs py-1">ENABLE PUSH NOTIFS</button>
         <span className="text-[10px] opacity-50">sissyos.sissyjaelynn.com</span>
       </div>
 
