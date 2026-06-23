@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --pink: #ff1493;
+  --hot-pink: #ec4899;
+  --dark: #0a0a0a;
+  --black: #111111;
+  --lace: #fce7f3;
+  --blush: #f9a8d4;
+  --sissy-gold: #f472b6;
+}
+
+body {
+  font-family: 'Georgia', ui-serif, serif;
+  background: #0a0a0a;
+  color: #fce7f3;
+  font-feature-settings: "kern" "tnum";
+}
+
+.sissy-card {
+  @apply bg-[#111] border border-[#ff1493]/30 rounded-2xl p-6 shadow-2xl;
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s;
+}
+
+.sissy-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(236 72 153 / 0.1);
+}
+
+.femme-btn {
+  @apply px-6 py-3 bg-[#ff1493] hover:bg-[#ec4899] text-black font-semibold rounded-full transition-all active:scale-[0.985] flex items-center gap-2 shadow-lg shadow-pink-950/50;
+}
+
+.femme-btn-ghost {
+  @apply px-5 py-2.5 border border-[#ff1493]/60 hover:bg-[#ff1493]/10 text-[#ff1493] rounded-full transition flex items-center gap-2;
+}
+
+.tab-active {
+  @apply border-b-2 border-[#ff1493] text-[#ff1493] font-semibold;
+}
+
+.sissy-text {
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+.chastity-timer {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.roulette-result {
+  animation: roulette-spin 0.7s cubic-bezier(0.23, 1.0, 0.32, 1);
+}
+
+.sissy-score {
+  background: linear-gradient(90deg, #ff1493, #f472b6, #ff1493);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulse-sissy 2.5s infinite;
+}
+
+.metric-bar {
+  transition: width 800ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.lace-border {
+  position: relative;
+}
+.lace-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid #ff1493;
+  opacity: 0.2;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+@keyframes pulse-sissy {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+.pwa-banner {
+  @apply fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-black/90 border border-pink-500/40 px-4 py-2 rounded-full flex gap-3 items-center text-sm backdrop-blur;
+} /* deploy-gate css edit for visible diff */
